@@ -34,11 +34,11 @@ We try to get a good world seed so that we spawn in a forest, with a spawnpoint 
 
 
 ## Usage
-To generate structure seeds, you can leave the allSeeds array in main.java empty. Then, it will spawn a number of threads, default 12, to iterate over all seeds sequentially\
+To generate structure seeds, you can leave the viableStructureSeeds array in main.java empty. Then, it will spawn a number of threads, default 12, to iterate over all seeds sequentially\
 and try to find good ones. \
 It will print these out to the console, this will be the output, in the format {structureseed, intersectx, intersectz}.\
 It will also print how far it has come, every 1.000.000.000 seeds. This can be used to update the start variable so that you dont iterate over the same seeds multiple times.\
-If you copy all the structureseeds (in the array-format that they are) into allSeeds and run the program again, it will go onto the next step:\
+If you copy all the structureseeds (in the array-format that they are) into viableStructureSeeds and run the program again, it will go onto the next step:\
 Finding a good world seed for that structure seed.\
 It will print world seeds and intersection coordinates to the console, and then you can go into a world with that seed to see if it's any good.
 
