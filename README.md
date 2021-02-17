@@ -19,6 +19,7 @@ dependencies {
     implementation 'com.github.KaptainWutax:SEED:master-SNAPSHOT'
 }
 ```
+3. Clone the src folders from this project into your IntelliJ project.
 That's it! 
 
 ## Explaination
