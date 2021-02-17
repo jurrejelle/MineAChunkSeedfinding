@@ -8,12 +8,12 @@ import kaptainwutax.seedutils.mc.pos.CPos;
 public class RavineProperties {
     public final long structureSeed;
     public final CPos chunkPosition;
-    public static BPos blockPosition;
-    public static float yaw;
-    public static float pitch;
-    public static float width;
-    public static int maxLength;
-    public static final int RAVINE_LENGTH = 112;
+    public BPos blockPosition;
+    public float yaw;
+    public float pitch;
+    public float width;
+    public int maxLength;
+    public final int RAVINE_LENGTH = 112;
 
     public RavineProperties(long worldSeed, CPos chunkPosition) {
         this.structureSeed = worldSeed;
