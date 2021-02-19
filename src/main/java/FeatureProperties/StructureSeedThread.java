@@ -1,11 +1,7 @@
 package FeatureProperties;
 
 import kaptainwutax.seedutils.mc.ChunkRand;
-import kaptainwutax.seedutils.mc.MCVersion;
-import kaptainwutax.seedutils.mc.pos.BPos;
 import kaptainwutax.seedutils.mc.pos.CPos;
-import kaptainwutax.seedutils.util.math.DistanceMetric;
-import kaptainwutax.seedutils.util.math.Vec3i;
 
 import java.util.ArrayList;
 import java.util.concurrent.atomic.AtomicInteger;
@@ -55,11 +51,10 @@ public class StructureSeedThread implements Runnable{
                     //Spawn a ravineProperties class at our coordinates
                     RavineProperties ravine = new RavineProperties(structureSeed, new CPos(x, z));
                     //Skip anything that either isn't a ravine or is less than 5.6 wide (max width: 6.0)
-                    if(!ravine.generate(chunkRand)) continue;
-                    if(ravine.width <5.6) continue;
-                    if(ravine.blockPosition.getY()<35) continue;
-                    //Add the ravine to a list, and increase the number of ravines found (ravineCounter) by 1
-                    ravines.add(ravine);
+                    if(ravine.generateWithChecks(chunkRand)) {
+                        //Add the ravine to a list, and increase the number of ravines found (ravineCounter) by 1
+                        ravines.add(ravine);
+                    }
                 }
             }
             //If there are 2 or more ravines of our width

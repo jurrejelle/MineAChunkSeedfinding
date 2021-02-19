@@ -36,6 +36,26 @@ public class RavineProperties {
         return true;
     }
 
+
+    public boolean generateWithChecks(ChunkRand chunkRand) {
+        chunkRand.setCarverSeed(structureSeed + 1, chunkPosition.getX(), chunkPosition.getZ(), MCVersion.v1_16_1);
+        if (!(chunkRand.nextFloat() <= 0.02F)) return false;
+        int x = chunkPosition.getX() * 16 + chunkRand.nextInt(16);
+        int y = chunkRand.nextInt(chunkRand.nextInt(40) + 8)+20;
+        int z = chunkPosition.getZ() * 16 + chunkRand.nextInt(16);
+
+        yaw = chunkRand.nextFloat() * 6.2831855F;
+        pitch = (chunkRand.nextFloat() - 0.5F) * 2.0F / 8.0F;
+        //Doing it like this because if the pitch is positive it wont go down anyways
+        if(pitch<0 && y<30) return false;
+        width = (chunkRand.nextFloat() * 2.0F + chunkRand.nextFloat()) * 2.0F;
+
+        if(width<5.6) return false;
+
+        blockPosition = new BPos(x, y, z);
+        return true;
+    }
+
     public BPos getPosition(ChunkRand chunkRand) {
         chunkRand.setCarverSeed(structureSeed + 1, chunkPosition.getX(), chunkPosition.getZ(), MCVersion.v1_16_1);
         if (!(chunkRand.nextFloat() <= 0.02F)) return null;
