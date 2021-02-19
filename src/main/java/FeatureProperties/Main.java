@@ -5,27 +5,26 @@ import kaptainwutax.seedutils.mc.ChunkRand;
 import kaptainwutax.seedutils.mc.pos.CPos;
 
 public class Main {
-    //Get the intersection. Return false if there is none within [scale] blocks. If there is one, put the coords in x,z
+    //Start is the seed to start at, totalThreads is the amount of threads. More is better but make sure it doesn't cap out your CPU.
+    public static long STRUCTURE_SEED_START = 1277000000000L;
+    public static int TOTAL_THREADS = 12;
 
 
     public static void main (String[] args) {
-        //Start is the seed to start at, totalThreads is the amount of threads. More is better but make sure it doesn't cap out your CPU.
-        long start = 66000000000L;
-        int totalThreads = 12;
 
         //Paste the output in here to have it turn the structure seeds into world seeds
-        long[][] allSeeds = new long[][]{
+        long[][] viableStructureSeeds = new long[][]{
         };
 
-        // If there's stuff in the allSeeds array that means we have to convert structure seeds to world seeds. Otherwise, just generate more structure seeds.
-        if(allSeeds.length>0) {
+        // If there's stuff in the viableStructureSeeds array that means we have to convert structure seeds to world seeds. Otherwise, just generate more structure seeds.
+        if(viableStructureSeeds.length>0) {
             //If multiple seeds, just run all of em with one thread each and exit
-            if(allSeeds.length>1) {
-                generateAllSeeds(allSeeds, totalThreads);
+            if(viableStructureSeeds.length>1) {
+                generateAllSeeds(viableStructureSeeds, TOTAL_THREADS);
             } else {
                 //If a single seed, spend all computing power on that one seed
-                for(int offset=0;offset<totalThreads;offset++) {
-                    Runnable myThread = new WorldSeedThread(offset, totalThreads,allSeeds[0][0], (int)allSeeds[0][1],(int)allSeeds[0][2]);
+                for(int offset = 0; offset< TOTAL_THREADS; offset++) {
+                    Runnable myThread = new WorldSeedThread(offset, TOTAL_THREADS,viableStructureSeeds[0][0], (int)viableStructureSeeds[0][1],(int)viableStructureSeeds[0][2]);
                     new Thread(myThread).start();
                 }
             }
@@ -35,13 +34,13 @@ public class Main {
             //  that intersect
             //  at a small angle
             //
-            // The output will be {structureSeed, intersectX, intersectY}. You can paste this in the allSeeds array up above to generate a world seed
+            // The output will be {structureSeed, intersectX, intersectY}. You can paste this in the viableStructureSeeds array up above to generate a world seed
             // for it. This might take a few minutes because our restraints are pretty strict on this as well.
             // Also, once every 1.000.000.000 seeds it'll post an update on how far it is, if you stop the program you can use these to
             // set the int start to, so that it knows where to resume.
-            // (Don't include these in the allSeeds array, they're just for knowing where the program is rn)
-            for (int offset = 0; offset < totalThreads; offset++) {
-                Runnable myThread = new StructureSeedThread(start, offset, totalThreads);
+            // (Don't include these in the viableStructureSeeds array, they're just for knowing where the program is rn)
+            for (int offset = 0; offset < TOTAL_THREADS; offset++) {
+                Runnable myThread = new StructureSeedThread(STRUCTURE_SEED_START, offset, TOTAL_THREADS);
                 new Thread(myThread).start();
             }
         }
@@ -56,11 +55,11 @@ public class Main {
     }
     //You can call this method with a structureseed to find all info about ravines in the structureseed
     public static void analyseRavines(long structureSeed){
-        ChunkRand myCR = new ChunkRand();
+        ChunkRand chunkRand = new ChunkRand();
         for(int x=-1;x<=1;x++) {
             for (int z = -1; z <= 1; z++) {
                 RavineProperties rp = new RavineProperties(structureSeed, new CPos(x, z));
-                if (rp.generate(myCR)) {
+                if (rp.generate(chunkRand)) {
                     System.out.println(rp);
                 }
             }
