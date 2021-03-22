@@ -43,7 +43,10 @@ Finding a good world seed for that structure seed.\
 It will print world seeds and intersection coordinates to the console, and then you can go into a world with that seed to see if it's any good.
 
 
-Our current best chunk is 298933172323, starting at 29, -19, which only has about 5200 blocks that need to be mined.
+Our current best chunk is in seed: 4998434179546958649\
+x: 26-41\
+z: 34-49\
+which only has about 3687 blocks that need to be mined.
 
 ## Contact
 If you have any questions, you can reach me on discord (@jurrejelle#4936), twitter (@jurrejelle), instagram (@jurrejelle), telegram (@jurrejelle) or email (jurre@jilles.com)
